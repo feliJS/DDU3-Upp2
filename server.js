@@ -55,3 +55,15 @@ function handler(request){
                     headers: { "Content-Type": "application/json" }
                 });
             }
+            const cityExists = cities.some(city => city.name.toLowerCase() === body.name.toLowerCase());
+            if (cityExists) {
+                return new Response(JSON.stringify({ error: "City already exists" }), {
+
+                    status: 409,
+
+                    headers: { "Content-Type": "application/json" }
+                });
+            }
+            //200: Om staden har lagts till i arrayen. Servern svarar med {id, name, country}
+            //jag måste lägga till ett nytt id innan jag pushar.. how do i do?
+            cities.push(newCity);
