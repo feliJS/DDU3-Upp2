@@ -67,3 +67,16 @@ function handler(request){
             //200: Om staden har lagts till i arrayen. Servern svarar med {id, name, country}
             //jag måste lägga till ett nytt id innan jag pushar.. how do i do?
             cities.push(newCity);
+            return new Response(JSON.stringify(newCity), { 
+
+                status: 200,
+
+                headers: { "Content-Type": "application/json" }
+        });
+    }
+    if(request.method == "DELETE"){
+        
+    }
+}
+return new Response("Not Found", { status: 404 });
+}
