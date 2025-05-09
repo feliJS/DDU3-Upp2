@@ -27,4 +27,22 @@ function handler(request){
     if (request.method === "OPTIONS") {
     return new Response(null, { headers: headersCORS });
     }
-   
+    //cities
+    if(url.pathname == "/cities"){
+        const allowedMethods = ["GET", "POST", "DELETE"]
+        if (!allowedMethods.includes(request.method)) {
+            return new Response({status: 400,
+
+                headers: { "Content-Type": "application/json" }
+            });
+        }
+        if(request.method == "GET"){
+            return new Response(JSON.stringify(cities), {
+
+                status: 200,
+
+                headers: {
+                  "content-type": "application/json",
+                },
+              });
+        }
