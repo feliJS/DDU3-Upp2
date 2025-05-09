@@ -20,7 +20,7 @@ const cities = [
 //fixa response function
 //fixa error funktioner
 
-function handler(request){
+async function handler(request){
     const url = new URL(request.url);
     const headersCORS = new Headers();
     headersCORS.set("Access-Control-Allow-Origin", "*"); 
@@ -47,6 +47,8 @@ function handler(request){
               });
         }
         if(request.method == "POST"){
+            
+            let body = await request.json()
             if (!body.name || !body.country) {
                 return new Response(JSON.stringify({ error: "Missing name and country" }), {
 
@@ -64,8 +66,13 @@ function handler(request){
                     headers: { "Content-Type": "application/json" }
                 });
             }
-            //200: Om staden har lagts till i arrayen. Servern svarar med {id, name, country}
-            //jag måste lägga till ett nytt id innan jag pushar.. how do i do?
+            let highestID = 0;
+            for (let x = 0; x < cities.length; x++) {
+                if(highestID < cities[x].id){
+                    highestID = cities[x].id
+                }
+            }
+            let newCity = {id: highestID+1, name: body.name, country: body.country}
             cities.push(newCity);
             return new Response(JSON.stringify(newCity), { 
 
@@ -80,3 +87,5 @@ function handler(request){
 }
 return new Response("Not Found", { status: 404 });
 }
+
+Deno.serve(handler)
