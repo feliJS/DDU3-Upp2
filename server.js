@@ -46,3 +46,12 @@ function handler(request){
                 },
               });
         }
+        if(request.method == "POST"){
+            if (!body.name || !body.country) {
+                return new Response(JSON.stringify({ error: "Missing name and country" }), {
+
+                    status: 400,
+
+                    headers: { "Content-Type": "application/json" }
+                });
+            }
