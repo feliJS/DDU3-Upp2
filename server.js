@@ -47,8 +47,13 @@ async function handler(request){
               });
         }
         if(request.method == "POST"){
-            
-            let body = await request.json()
+            try{let body = await request.json()}
+            catch{return new Response(JSON.stringify({ error: "Not correct format" }), {
+
+                status: 400,
+
+                headers: { "Content-Type": "application/json" }
+            })}
             if (!body.name || !body.country) {
                 return new Response(JSON.stringify({ error: "Missing name and country" }), {
 
