@@ -1,7 +1,7 @@
 //GLÖM EJ FIXA INDENTSEN!
 
 //#1
-let getCities = new Request("https://localhost:8000/cities")
+let getCities = new Request("http://localhost:8000/cities")
 fetch(getCities)
     .then((response) => {
         if(response.status == ok){

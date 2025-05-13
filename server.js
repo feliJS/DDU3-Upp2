@@ -37,13 +37,12 @@ async function handler(request){
             });
         }
         if(request.method == "GET"){
+            headersCORS.set("content-type", "application/json");
             return new Response(JSON.stringify(cities), {
 
                 status: 200,
 
-                headers: {
-                  "content-type": "application/json",
-                },
+                headers: headersCORS,
               });
         }
         if(request.method == "POST"){
