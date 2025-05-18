@@ -24,6 +24,7 @@ async function handler(request){
     const url = new URL(request.url);
     const headersCORS = new Headers();
     headersCORS.set("Access-Control-Allow-Origin", "*"); 
+    headersCORS.set("Access-Control-Allow-Headers", "Content-Type");
     if (request.method === "OPTIONS") {
     return new Response(null, { headers: headersCORS });
     }
@@ -37,7 +38,7 @@ async function handler(request){
             });
         }
         if(request.method == "GET"){
-            headersCORS.set("content-type", "application/json");
+            headersCORS.set("Content-Type", "application/json");
             return new Response(JSON.stringify(cities), {
 
                 status: 200,
@@ -46,19 +47,20 @@ async function handler(request){
               });
         }
         if(request.method == "POST"){
+            headersCORS.set("Content-Type", "application/json"); //behövs denna set:as varje metod?
             try{let body = await request.json()}
             catch{return new Response(JSON.stringify({ error: "Not correct format" }), {
 
                 status: 400,
 
-                headers: { "Content-Type": "application/json" }
+                headers: headersCORS,
             })}
             if (!body.name || !body.country) {
                 return new Response(JSON.stringify({ error: "Missing name and country" }), {
 
                     status: 400,
 
-                    headers: { "Content-Type": "application/json" }
+                    headers: headersCORS,
                 });
             }
             const cityExists = cities.some(city => city.name.toLowerCase() === body.name.toLowerCase());
@@ -67,7 +69,7 @@ async function handler(request){
 
                     status: 409,
 
-                    headers: { "Content-Type": "application/json" }
+                    headers: headersCORS
                 });
             }
             let highestID = 0;
@@ -82,13 +84,107 @@ async function handler(request){
 
                 status: 200,
 
-                headers: { "Content-Type": "application/json" }
+                headers: headersCORS
         });
     }
-    if(request.method == "DELETE"){
-        
+ if (method === "DELETE") {
+      let body;
+      try {
+        body = await request.json();
+      } catch {
+                  return new Response(JSON.stringify({error: "invalid json"}), { 
+
+                status: 200,
+
+                headers: headersCORS
+        });
+      }
+
+      if (!body.id) {
+        return new Response(JSON.stringify({error: "invalid id"}), { 
+
+                status: 400,
+
+                headers: headersCORS
+        });
+      }
+
+      const index = cities.findIndex((c) => c.id === body.id);
+      if (index === -1) {
+        return new Response(JSON.stringify({error: "city not found"}), { 
+
+                status: 404,
+
+                headers: headersCORS
+        });
+      }
+
+      cities.splice(index, 1);
+      return new Response(JSON.stringify({error: "Delete OK"}), { 
+
+                status: 200,
+
+                headers: headersCORS
+        });
     }
 }
+
+const cityByIdPattern = new URLPattern({ pathname: "/cities/:id" });
+
+if (request.method === "GET" && cityIdMatch) {
+  const match = cityByIdPattern.exec(url);  
+  if (match) {
+    const id = match.pathname.groups.id;   
+    const city = cities.find((c) => c.id === id);
+
+    if (city) {
+            return new Response(JSON.stringify(city), { 
+
+                status: 200,
+
+                headers: headersCORS
+        });                
+    }
+          return new Response(JSON.stringify({error: "city not found"}), { 
+
+                status: 404,
+
+                headers: headersCORS
+        });
+  }
+}
+
+if (method === "GET" && pathname === "/cities/search") {
+    const text = url.searchParams.get("text");
+    const country = url.searchParams.get("country");
+
+    if (!text) {
+      return new Response(JSON.stringify({error: "missing text parameter"}), { 
+
+                status: 400,
+
+                headers: headersCORS
+        });
+    }
+
+    let results = cities.filter((c) =>
+      c.name.toLowerCase().includes(text.toLowerCase())
+    );
+
+    if (country) {
+      results = results.filter(
+        (c) => c.country.toLowerCase() == country.toLowerCase()
+      );
+    }
+
+    return new Response(JSON.stringify(results), { 
+
+                status: 200,
+
+                headers: headersCORS
+        });
+  }
+
 return new Response("Not Found", { status: 404 });
 }
 
