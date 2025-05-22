@@ -1,7 +1,8 @@
 //GLÖM EJ FIXA INDENTSEN!
+//ta bort everything works loggen?
 
 //#1
-let getCities = new Request("http://localhost:8000/cities")
+let getCities = new Request("http://localhost:1337/cities")
 fetch(getCities)
     .then((response) => {
         if(response.status == 200){
@@ -14,7 +15,7 @@ fetch(getCities)
     })
 
 //#2
-let citiesPost = new Request("http://localhost:8000/cities", {method: "POST", headers:{
+let citiesPost = new Request("http://localhost:1337/cities", {method: "POST", headers:{
     "Content-Type": "application/json"},    
     body: JSON.stringify({
         "name": "Malmö",
@@ -29,4 +30,25 @@ fetch(citiesPost)
     })
     .then((addedCity) => {
         console.log(addedCity);
+    })
+
+//#3
+let deleteCity = new Request("http://localhost:1337/cities", {
+    method: "DELETE",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        id: 2
+    })
+})
+fetch(deleteCity)
+    .then((response) => {
+        if(response.status == 200){
+            console.log("everything works, " + response.status);
+            return response.text()
+        }
+    })
+    .then((message) => {
+        console.log(message);
     })

@@ -21,13 +21,16 @@ const cities = [
 //fixa error funktioner
 
 async function handler(request){
+  
     const url = new URL(request.url);
     const headersCORS = new Headers();
     headersCORS.set("Access-Control-Allow-Origin", "*"); 
+    headersCORS.set("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS")
     headersCORS.set("Access-Control-Allow-Headers", "Content-Type");
     if (request.method === "OPTIONS") {
-    return new Response(null, { headers: headersCORS });
+      return new Response(null, { status: 204, headers: headersCORS });
     }
+
     //cities
     if(url.pathname == "/cities"){
         const allowedMethods = ["GET", "POST", "DELETE"]
@@ -48,7 +51,8 @@ async function handler(request){
         }
         if(request.method == "POST"){
             headersCORS.set("Content-Type", "application/json"); //behövs denna set:as varje metod?
-            try{let body = await request.json()}
+            let body;
+            try{body = await request.json()}
             catch{return new Response(JSON.stringify({ error: "Not correct format" }), {
 
                 status: 400,
@@ -87,7 +91,7 @@ async function handler(request){
                 headers: headersCORS
         });
     }
- if (method === "DELETE") {
+ if (request.method == "DELETE") {
       let body;
       try {
         body = await request.json();
@@ -120,7 +124,7 @@ async function handler(request){
       }
 
       cities.splice(index, 1);
-      return new Response(JSON.stringify({error: "Delete OK"}), { 
+      return new Response(JSON.stringify({content: "Delete OK"}), { 
 
                 status: 200,
 
@@ -154,7 +158,7 @@ if (request.method === "GET" && cityIdMatch) {
   }
 }
 
-if (method === "GET" && pathname === "/cities/search") {
+if (request.method === "GET" && pathname === "/cities/search") {
     const text = url.searchParams.get("text");
     const country = url.searchParams.get("country");
 
@@ -188,4 +192,4 @@ if (method === "GET" && pathname === "/cities/search") {
 return new Response("Not Found", { status: 404 });
 }
 
-Deno.serve(handler)
+Deno.serve({ port: 1337},handler)
