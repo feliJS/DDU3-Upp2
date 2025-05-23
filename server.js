@@ -91,7 +91,7 @@ async function handler(request){
                 headers: headersCORS
         });
     }
- if (request.method == "DELETE") {
+    if (request.method == "DELETE") {
       let body;
       try {
         body = await request.json();
