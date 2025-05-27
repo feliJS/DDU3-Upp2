@@ -1,11 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>City Manager</title>
+  <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
-    <script src="static/test.js"></script>
+  <div class="container">
+    <!-- List of Cities - change this to javascript code later -->
+    <div class="section list-section">
+      <h2>List of Cities</h2>
+      <div class="city-item">Lille, France <button class="delete-btn">Delete</button></div>
+      <div class="city-item">Nantes, France <button class="delete-btn">Delete</button></div>
+      <div class="city-item">Bremen, Germany <button class="delete-btn">Delete</button></div>
+      <div class="city-item">Dresden, Germany <button class="delete-btn">Delete</button></div>
+      <div class="city-item">Heidelberg, Germany <button class="delete-btn">Delete</button></div>
+      <div class="city-item">Venice, Germany <button class="delete-btn">Delete</button></div>
+    </div>
+
+    <!-- Add City -->
+    <div class="section add-section">
+      <h2>Add City</h2>
+      <div class="input-field">
+        <p>Name:</p>
+        <input type="text">
+      </div>
+      <div class="input-field">
+        <p>Country:</p>
+        <input type="text">
+      </div>
+      <button class="add-button">Add City</button>
+    </div>
+
+    <!-- Search Cities -->
+    <div class="section search-section">
+      <h2>Search Cities</h2>
+      <div class="input-field">
+        <p>Text:</p>
+        <input type="text">
+      </div>
+      <div class="input-field">
+        <p>Country:</p>
+        <input type="text">
+      </div>
+      <button class="search-button">Search Cities</button>
+    <!-- JS code later-- -->
+      <div class="search-results">
+        <div class="city-item">Bremen, Germany</div>
+        <div class="city-item">Dresden, Germany</div>
+        <div class="city-item">Venice, Italy</div>
+        <div class="city-item">Ghent, Belgium</div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
