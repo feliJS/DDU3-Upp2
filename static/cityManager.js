@@ -50,3 +50,29 @@ document.getElementById("add-btn").addEventListener("click", async () => {
     alert(error.error || "Something went wrong");
   }
 });
+
+document.getElementById("search-btn").addEventListener("click", async () => {
+  const text = document.getElementById("search-text").value.trim();
+  const country = document.getElementById("search-country").value.trim();
+
+  const url = new URL(`${apiBase}/cities/search`);
+  if (text) url.searchParams.set("text", text);
+  if (country) url.searchParams.set("country", country);
+
+  const res = await fetch(url);
+  const results = await res.json();
+
+  searchResults.innerHTML = "";
+  if(results != "Not Found"){
+    results.forEach(city => {
+      const div = document.createElement("div");
+      div.className = "city-item";
+      div.textContent = `${city.name}, ${city.country}`;
+      searchResults.appendChild(div);
+    });
+  }
+
+});
+
+// Ladda städer när sidan laddas
+loadCities();
