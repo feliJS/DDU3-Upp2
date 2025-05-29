@@ -6,52 +6,42 @@
   <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
-  <div class="container">
-    <!-- List of Cities - change this to javascript code later -->
-    <div class="section list-section">
-      <h2>List of Cities</h2>
-      <div class="city-item">Lille, France <button class="delete-btn">Delete</button></div>
-      <div class="city-item">Nantes, France <button class="delete-btn">Delete</button></div>
-      <div class="city-item">Bremen, Germany <button class="delete-btn">Delete</button></div>
-      <div class="city-item">Dresden, Germany <button class="delete-btn">Delete</button></div>
-      <div class="city-item">Heidelberg, Germany <button class="delete-btn">Delete</button></div>
-      <div class="city-item">Venice, Germany <button class="delete-btn">Delete</button></div>
-    </div>
-
-    <!-- Add City -->
-    <div class="section add-section">
-      <h2>Add City</h2>
-      <div class="input-field">
-        <p>Name:</p>
-        <input type="text">
-      </div>
-      <div class="input-field">
-        <p>Country:</p>
-        <input type="text">
-      </div>
-      <button class="add-button">Add City</button>
-    </div>
-
-    <!-- Search Cities -->
-    <div class="section search-section">
-      <h2>Search Cities</h2>
-      <div class="input-field">
-        <p>Text:</p>
-        <input type="text">
-      </div>
-      <div class="input-field">
-        <p>Country:</p>
-        <input type="text">
-      </div>
-      <button class="search-button">Search Cities</button>
-    <!-- JS code later-- -->
-      <div class="search-results">
-        <div class="city-item">Bremen, Germany</div>
-        <div class="city-item">Dresden, Germany</div>
-        <div class="city-item">Venice, Italy</div>
-        <div class="city-item">Ghent, Belgium</div>
-      </div>
-    </div>
+  <!-- List of Cities -->
+<div class="container">
+  <div class="section list-section">
+    <h2>List of Cities</h2>
+    <div id="city-list"></div>
   </div>
+
+  <!-- Add City -->
+  <div class="section add-section">
+    <h2>Add City</h2>
+    <div class="input-field">
+      <p>Name:</p>
+      <input type="text" id="add-name">
+    </div>
+    <div class="input-field">
+      <p>Country:</p>
+      <input type="text" id="add-country">
+    </div>
+    <button class="add-button" id="add-btn">Add City</button>
+  </div>
+
+  <!-- Search Cities -->
+  <div class="section search-section">
+    <h2>Search Cities</h2>
+    <div class="input-field">
+      <p>Text:</p>
+      <input type="text" id="search-text">
+    </div>
+    <div class="input-field">
+      <p>Country:</p>
+      <input type="text" id="search-country">
+    </div>
+    <button class="search-button" id="search-btn">Search Cities</button>
+    <div class="search-results" id="search-results"></div>
+  </div>
+</div>
+<script src="static/cityManager.js" type="module"></script>
 </body>
 </html>

@@ -133,9 +133,40 @@ async function handler(request){
     }
 }
 
+if (request.method === "GET" && url.pathname === "/cities/search") {
+  const text = url.searchParams.get("text");
+  const country = url.searchParams.get("country");
+
+  if (!text) {
+    return new Response(JSON.stringify({error: "missing text parameter"}), { 
+
+              status: 400,
+
+              headers: headersCORS
+      });
+  }
+
+  let results = cities.filter((c) =>
+    c.name.toLowerCase().includes(text.toLowerCase())
+  );
+
+  if (country) {
+    results = results.filter(
+      (c) => c.country.toLowerCase() == country.toLowerCase()
+    );
+  }
+
+  return new Response(JSON.stringify(results), { 
+
+              status: 200,
+
+              headers: headersCORS
+      });
+}
+
 const cityByIdPattern = new URLPattern({ pathname: "/cities/:id" });
 
-if (request.method === "GET" && cityIdMatch) {
+if (request.method === "GET") {
   const match = cityByIdPattern.exec(url);  
   if (match) {
     const id = match.pathname.groups.id;   
@@ -157,37 +188,6 @@ if (request.method === "GET" && cityIdMatch) {
         });
   }
 }
-
-if (request.method === "GET" && pathname === "/cities/search") {
-    const text = url.searchParams.get("text");
-    const country = url.searchParams.get("country");
-
-    if (!text) {
-      return new Response(JSON.stringify({error: "missing text parameter"}), { 
-
-                status: 400,
-
-                headers: headersCORS
-        });
-    }
-
-    let results = cities.filter((c) =>
-      c.name.toLowerCase().includes(text.toLowerCase())
-    );
-
-    if (country) {
-      results = results.filter(
-        (c) => c.country.toLowerCase() == country.toLowerCase()
-      );
-    }
-
-    return new Response(JSON.stringify(results), { 
-
-                status: 200,
-
-                headers: headersCORS
-        });
-  }
 
 return new Response("Not Found", { status: 404 });
 }
