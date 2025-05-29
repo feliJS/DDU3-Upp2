@@ -20,3 +20,12 @@ function renderCity(city) {
   div.querySelector("button").addEventListener("click", () => deleteCity(city.id));
   cityList.appendChild(div);
 }
+
+async function deleteCity(id) {
+  const res = await fetch(`${apiBase}/cities`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id })
+  });
+  if (res.ok) loadCities();
+}
