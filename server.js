@@ -31,15 +31,6 @@ async function handler(request) {
 
   // /cities
   if (url.pathname === "/cities") {
-    const allowedMethods = ["GET", "POST", "DELETE"];
-    if (!allowedMethods.includes(request.method)) {
-      headersCORS.set("Content-Type", "application/json");
-      return new Response(
-        JSON.stringify({ error: "Method not allowed" }),
-        { status: 400, headers: headersCORS }
-      );
-    }
-
     // GET /cities
     if (request.method === "GET") {
       headersCORS.set("Content-Type", "application/json");
@@ -114,15 +105,7 @@ async function handler(request) {
         );
       }
 
-      const idNum = Number(body.id);
-      if (isNaN(idNum)) {
-        return new Response(
-          JSON.stringify({ error: "Invalid id format" }),
-          { status: 400, headers: headersCORS }
-        );
-      }
-
-      const index = cities.findIndex((c) => c.id === idNum);
+      const index = cities.findIndex((c) => c.id === body.id);
       if (index === -1) {
         return new Response(
           JSON.stringify({ error: "City not found" }),
@@ -146,7 +129,7 @@ async function handler(request) {
 
     if (!text) {
       return new Response(
-        JSON.stringify({ error: "Missing query param: text" }),
+        JSON.stringify({ error: "Missing text" }),
         { status: 400, headers: headersCORS }
       );
     }
@@ -173,14 +156,8 @@ async function handler(request) {
     const match = cityByIdPattern.exec(url);
     if (match) {
       headersCORS.set("Content-Type", "application/json");
-      const idNum = parseInt(match.pathname.groups.id, 10);
-      if (isNaN(idNum)) {
-        return new Response(
-          JSON.stringify({ error: "Invalid id format" }),
-          { status: 400, headers: headersCORS }
-        );
-      }
-      const city = cities.find((c) => c.id === idNum);
+      const idNum = match.pathname.groups.id;
+      const city = cities.find((c) => c.id == idNum);
       if (city) {
         return new Response(JSON.stringify(city), {
           status: 200,

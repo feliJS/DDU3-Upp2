@@ -1,4 +1,3 @@
-// server.ts
 import { serveFile, serveDir } from "jsr:@std/http";
 
 async function handler(request) {
@@ -9,10 +8,9 @@ async function handler(request) {
     return serveFile(request, "index.html");
   }
 
-  // Serve static files from current folder
   return serveDir(request, {
     fsRoot: ".",
-    urlRoot: "", // svarar direkt på t.ex. /style.css
+    urlRoot: "",
   });
 }
 

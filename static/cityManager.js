@@ -31,8 +31,8 @@ async function deleteCity(id) {
 }
 
 document.getElementById("add-btn").addEventListener("click", async () => {
-  const name = document.getElementById("add-name").value.trim();
-  const country = document.getElementById("add-country").value.trim();
+  const name = document.getElementById("add-name").value;
+  const country = document.getElementById("add-country").value;
   if (!name || !country) return alert("Please enter name and country");
 
   const res = await fetch(`${apiBase}/cities`, {
@@ -47,13 +47,13 @@ document.getElementById("add-btn").addEventListener("click", async () => {
     loadCities();
   } else {
     const error = await res.json();
-    alert(error.error || "Something went wrong");
+    alert(error.error);
   }
 });
 
 document.getElementById("search-btn").addEventListener("click", async () => {
-  const text = document.getElementById("search-text").value.trim();
-  const country = document.getElementById("search-country").value.trim();
+  const text = document.getElementById("search-text").value;
+  const country = document.getElementById("search-country").value;
 
   const url = new URL(`${apiBase}/cities/search`);
   if (text) url.searchParams.set("text", text);
@@ -63,18 +63,21 @@ document.getElementById("search-btn").addEventListener("click", async () => {
   const results = await res.json();
 
   searchResults.innerHTML = "";
-  if (results.length === 0) {
-    searchResults.textContent = "No cities found";
+  if (res.ok) {
+    if (results.length === 0) {
+      searchResults.textContent = "No cities found";
+    } else {
+      results.forEach(city => {
+        const div = document.createElement("div");
+        div.className = "city-item";
+        div.textContent = `${city.name}, ${city.country}`;
+        searchResults.appendChild(div);
+      });
+    }
   } else {
-    results.forEach(city => {
-      const div = document.createElement("div");
-      div.className = "city-item";
-      div.textContent = `${city.name}, ${city.country}`;
-      searchResults.appendChild(div);
-    });
+    alert(results.error);
   }
 
 });
 
-// Ladda städer när sidan laddas
 loadCities();
