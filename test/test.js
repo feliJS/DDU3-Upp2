@@ -1,15 +1,24 @@
+const output = document.getElementById("output");
+
+function log(message) {
+  const div = document.createElement("div");
+  div.className = "log";
+  div.textContent = message;
+  output.appendChild(div);
+}
+
 // #1
 function fetchCities() {
     let getCities = new Request("http://localhost:1337/cities");
     return fetch(getCities)
         .then(response => {
             if (response.status == 200) {
-                console.log("everything works, " + response.status);
+                log("#1 everything works, " + response.status);
                 return response.json();
             }
         })
         .then(allCities => {
-            console.log(allCities);
+            log("#1 " + JSON.stringify(allCities));
         });
 }
 
@@ -29,12 +38,12 @@ function postCity() {
     return fetch(citiesPost)
         .then(response => {
             if (response.status == 200) {
-                console.log("everything works, " + response.status);
+                log("#2 everything works, " + response.status);
                 return response.json();
             }
         })
         .then(addedCity => {
-            console.log(addedCity);
+            log("#2 " + JSON.stringify(addedCity));
         });
 }
 
@@ -50,12 +59,12 @@ function deleteCityById() {
     return fetch(deleteCity)
         .then(response => {
             if (response.status == 200) {
-                console.log("everything works, " + response.status);
+                log("#3 everything works, " + response.status);
                 return response.text();
             }
         })
         .then(message => {
-            console.log(message);
+            log("#3 " + message);
         });
 }
 
@@ -63,9 +72,9 @@ function deleteCityById() {
 async function getCitiesAgain() {
     let response = await fetch("http://localhost:1337/cities");
     if (response.status == 200) {
-        console.log("everything works, " + response.status);
+        log("#4 everything works, " + response.status);
         let allCities = await response.json();
-        console.log(allCities);
+        log("#4 " + JSON.stringify(allCities));
     }
 }
 
@@ -73,9 +82,9 @@ async function getCitiesAgain() {
 async function getMalmo() {
     let response = await fetch("http://localhost:1337/cities/43");
     if (response.status == 200) {
-        console.log("everything works, " + response.status);
+        log("#5 everything works, " + response.status);
         let city = await response.json();
-        console.log(city);
+        log("#5 " + JSON.stringify(city));
     }
 }
 
@@ -83,9 +92,9 @@ async function getMalmo() {
 async function searchCitiesEn() {
     let response = await fetch("http://localhost:1337/cities/search?text=en");
     if (response.status == 200) {
-        console.log("everything works, " + response.status);
+        log("#6 everything works, " + response.status);
         let result = await response.json();
-        console.log(result);
+        log("#6 " + JSON.stringify(result));
     }
 }
 
@@ -93,9 +102,9 @@ async function searchCitiesEn() {
 async function searchCitiesEnSweden() {
     let response = await fetch("http://localhost:1337/cities/search?text=en&country=Sweden");
     if (response.status == 200) {
-        console.log("everything works, " + response.status);
+        log("#7 everything works, " + response.status);
         let result = await response.json();
-        console.log(result);
+        log("#7 " + JSON.stringify(result));
     }
 }
 
@@ -113,7 +122,7 @@ function duplicateCityPost() {
     });
     return fetch(duplicatePost)
         .then(response => {
-            console.log("everything works, " + response.status);
+            log("#8 everything works, " + response.status);
         });
 }
 
@@ -130,7 +139,7 @@ function invalidCityPost() {
     });
     return fetch(invalidPost)
         .then(response => {
-            console.log("everything works, " + response.status);
+            log("#9 everything works, " + response.status);
         });
 }
 
@@ -147,7 +156,7 @@ function deleteNonExistingCity() {
     });
     return fetch(deleteNonExistent)
         .then(response => {
-            console.log("everything works, " + response.status);
+            log("#10 everything works, " + response.status);
         });
 }
 
@@ -162,7 +171,7 @@ function deleteEmptyRequest() {
     });
     return fetch(deleteEmpty)
         .then(response => {
-            console.log("everything works, " + response.status);
+            log("#11 everything works, " + response.status);
         });
 }
 
@@ -179,13 +188,13 @@ async function postInvalidMessage() {
             password: "pass"
         })
     });
-    console.log("everything works, " + response.status);
+    log("#12 everything works, " + response.status);
 }
 
 // #13
 async function getSearchWithoutQuery() {
     let response = await fetch("http://localhost:1337/cities/search");
-    console.log("everything works, " + response.status);
+    log("#13 everything works, " + response.status);
 }
 
 // #14
@@ -193,7 +202,7 @@ async function deleteMordor() {
     let response = await fetch("http://localhost:1337/mordor", {
         method: "DELETE"
     });
-    console.log("everything works, " + response.status);
+    log("#14 everything works, " + response.status);
 }
 
 // Kör alla i ordning
