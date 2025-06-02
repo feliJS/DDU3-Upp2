@@ -10,7 +10,7 @@ body {
 
 .container {
   display: flex;
-    justify-content: center;
+  justify-content: center;
   align-items: center;
   width: 90%;
   max-width: 1200px;
@@ -43,11 +43,11 @@ body {
   background-color: #fff6e0;
 }
 
-.search-section{
+.search-section {
   margin-right: 50px;
 }
 
-#city-list{
+#city-list {
   max-height: 100%;
   overflow-y: scroll;
 }
@@ -63,7 +63,7 @@ body {
   align-items: center;
   border-radius: 8px;
   font-weight: 500;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   box-sizing: border-box;
 }
 
@@ -75,6 +75,7 @@ body {
   border-radius: 5px;
   cursor: pointer;
 }
+
 .delete-btn:hover {
   background-color: #c9302c;
 }
@@ -98,7 +99,8 @@ body {
   background-color: #fff;
 }
 
-.add-button, .search-button{
+.add-button,
+.search-button {
   background-color: #ffcb77;
   color: #4b3300;
   font-weight: bold;
@@ -109,7 +111,9 @@ body {
   cursor: pointer;
   width: 100%;
 }
-.add-button:hover, .search-button:hover{
+
+.add-button:hover,
+.search-button:hover {
   background-color: #ffc155;
 }
 

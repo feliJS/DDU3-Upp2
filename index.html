@@ -1,47 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>City Manager</title>
   <link rel="stylesheet" href="static/style.css">
 </head>
+
 <body>
   <!-- List of Cities -->
-<div class="container">
-  <div class="section list-section">
-    <h2>List of Cities</h2>
-    <div id="city-list"></div>
-  </div>
+  <div class="container">
+    <div class="section list-section">
+      <h2>List of Cities</h2>
+      <div id="city-list"></div>
+    </div>
 
-  <!-- Add City -->
-  <div class="section add-section">
-    <h2>Add City</h2>
-    <div class="input-field">
-      <p>Name:</p>
-      <input type="text" id="add-name">
+    <!-- Add City -->
+    <div class="section add-section">
+      <h2>Add City</h2>
+      <div class="input-field">
+        <p>Name:</p>
+        <input type="text" id="add-name">
+      </div>
+      <div class="input-field">
+        <p>Country:</p>
+        <input type="text" id="add-country">
+      </div>
+      <button class="add-button" id="add-btn">Add City</button>
     </div>
-    <div class="input-field">
-      <p>Country:</p>
-      <input type="text" id="add-country">
-    </div>
-    <button class="add-button" id="add-btn">Add City</button>
-  </div>
 
-  <!-- Search Cities -->
-  <div class="section search-section">
-    <h2>Search Cities</h2>
-    <div class="input-field">
-      <p>Text:</p>
-      <input type="text" id="search-text">
+    <!-- Search Cities -->
+    <div class="section search-section">
+      <h2>Search Cities</h2>
+      <div class="input-field">
+        <p>Text:</p>
+        <input type="text" id="search-text">
+      </div>
+      <div class="input-field">
+        <p>Country:</p>
+        <input type="text" id="search-country">
+      </div>
+      <button class="search-button" id="search-btn">Search Cities</button>
+      <div class="search-results" id="search-results"></div>
     </div>
-    <div class="input-field">
-      <p>Country:</p>
-      <input type="text" id="search-country">
-    </div>
-    <button class="search-button" id="search-btn">Search Cities</button>
-    <div class="search-results" id="search-results"></div>
   </div>
-</div>
-<script src="static/cityManager.js" type="module"></script>
+  <script src="static/cityManager.js" type="module"></script>
 </body>
+
 </html>
