@@ -132,18 +132,16 @@ async function handler(request){
         });
     }
 }
-
 if (request.method === "GET" && url.pathname === "/cities/search") {
   const text = url.searchParams.get("text");
   const country = url.searchParams.get("country");
 
+  // Om inget sökfält är ifyllt, returnera en tom array
   if (!text) {
-    return new Response(JSON.stringify({error: "missing text parameter"}), { 
-
-              status: 400,
-
-              headers: headersCORS
-      });
+    return new Response(JSON.stringify([]), { 
+      status: 200,
+      headers: headersCORS
+    });
   }
 
   let results = cities.filter((c) =>
@@ -157,12 +155,11 @@ if (request.method === "GET" && url.pathname === "/cities/search") {
   }
 
   return new Response(JSON.stringify(results), { 
-
-              status: 200,
-
-              headers: headersCORS
-      });
+    status: 200,
+    headers: headersCORS
+  });
 }
+
 
 const cityByIdPattern = new URLPattern({ pathname: "/cities/:id" });
 
