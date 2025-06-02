@@ -188,8 +188,11 @@ if (request.method === "GET") {
         });
   }
 }
+return new Response(JSON.stringify({ error: "Invalid endpoint or method" }), {
+  status: 400,
+  headers: headersCORS,
+});
 
-return new Response("Not Found", { status: 404 });
 }
 
 Deno.serve({ port: 1337},handler)

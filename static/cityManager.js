@@ -63,14 +63,16 @@ document.getElementById("search-btn").addEventListener("click", async () => {
   const results = await res.json();
 
   searchResults.innerHTML = "";
-  if(results != "Not Found"){
-    results.forEach(city => {
-      const div = document.createElement("div");
-      div.className = "city-item";
-      div.textContent = `${city.name}, ${city.country}`;
-      searchResults.appendChild(div);
-    });
-  }
+  if (results.length === 0) {
+    searchResults.textContent = "No cities found";
+  } else {
+  results.forEach(city => {
+    const div = document.createElement("div");
+    div.className = "city-item";
+    div.textContent = `${city.name}, ${city.country}`;
+    searchResults.appendChild(div);
+  });
+}
 
 });
 

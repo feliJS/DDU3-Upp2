@@ -55,7 +55,7 @@ fetch(deleteCity)
 
 //#4
 async function getCitiesAgain() {
-    let response = await fetch("http://localhost:8000/cities")
+    let response = await fetch("http://localhost:1337/cities")
     if(response.status == 200){
         console.log("everything works, " + response.status);
         let allCities = await response.json()
@@ -66,7 +66,7 @@ getCitiesAgain()
 
 //#5
 async function getMalmo() {
-    let response = await fetch("http://localhost:8000/cities/43")
+    let response = await fetch("http://localhost:1337/cities/43")
     if(response.status == 200){
         console.log("everything works, " + response.status);
         let city = await response.json()
@@ -78,7 +78,7 @@ getMalmo()
 
 //#6
 async function searchCitiesEn() {
-    let response = await fetch("http://localhost:8000/cities/search?text=en")
+    let response = await fetch("http://localhost:1337/cities/search?text=en")
     if(response.status == 200){
         console.log("everything works, " + response.status);
         let result = await response.json()
@@ -89,7 +89,7 @@ searchCitiesEn()
 
 //#7
 async function searchCitiesEnSweden() {
-    let response = await fetch("http://localhost:8000/cities/search?text=en&country=Sweden")
+    let response = await fetch("http://localhost:1337/cities/search?text=en&country=Sweden")
     if(response.status == 200){
         console.log("everything works, " + response.status);
         let result = await response.json()
@@ -100,7 +100,7 @@ searchCitiesEnSweden()
 
 
 //#8
-let duplicatePost = new Request("http://localhost:8000/cities", {
+let duplicatePost = new Request("http://localhost:1337/cities", {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
@@ -116,7 +116,7 @@ fetch(duplicatePost)
     })
 
 //#9
-let invalidPost = new Request("http://localhost:8000/cities", {
+let invalidPost = new Request("http://localhost:1337/cities", {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
@@ -132,7 +132,7 @@ fetch(invalidPost)
 
 
 //#10
-let deleteNonExistent = new Request("http://localhost:8000/cities", {
+let deleteNonExistent = new Request("http://localhost:1337/cities", {
     method: "DELETE",
     headers: {
         "Content-Type": "application/json"
@@ -148,7 +148,7 @@ fetch(deleteNonExistent)
 
 
 //#11
-let deleteEmpty = new Request("http://localhost:8000/cities", {
+let deleteEmpty = new Request("http://localhost:1337/cities", {
     method: "DELETE",
     headers: {
         "Content-Type": "application/json"
@@ -162,7 +162,7 @@ fetch(deleteEmpty)
 
 //#12
 async function postInvalidMessage() {
-    let response = await fetch("http://localhost:8000/messages", {
+    let response = await fetch("http://localhost:1337/messages", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -179,14 +179,14 @@ postInvalidMessage()
 
 //#13
 async function getSearchWithoutQuery() {
-    let response = await fetch("http://localhost:8000/cities/search")
+    let response = await fetch("http://localhost:1337/cities/search")
     console.log("status code is: " + response.status);
 }
 getSearchWithoutQuery()
 
 //#14
 async function deleteMordor() {
-    let response = await fetch("http://localhost:8000/mordor", {
+    let response = await fetch("http://localhost:1337/mordor", {
         method: "DELETE"
     })
     console.log("status code is: " + response.status);
