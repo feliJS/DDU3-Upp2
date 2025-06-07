@@ -1,4 +1,4 @@
-body {
+body { /*Här kommer allting vara i mitten, */
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
   background-color: #fdf6e3;
@@ -8,7 +8,7 @@ body {
   height: 100vh;
 }
 
-.container {
+.container { /*skapar en horizontell rad med 3 kolumner tack vare display:flex*/
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,12 +20,12 @@ body {
   overflow: hidden;
 }
 
-.section {
-  flex: 1;
+.section {  /*varje kolumn, liksom del*/
+  flex: 1; /*de ska ta lika mycke plats*/
   padding: 25px;
   box-sizing: border-box;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /*och allting måste ju flöda nerååt*/
   align-items: center;
 }
 
@@ -52,7 +52,7 @@ body {
   overflow-y: scroll;
 }
 
-.city-item {
+.city-item { /*Varje stad har en bakgrundsfärg, paddning och utrymme mellan namn och knapp.*/
   background-color: #f5deb3;
   color: #3e2a00;
   padding: 10px 15px;

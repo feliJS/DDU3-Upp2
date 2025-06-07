@@ -10,6 +10,10 @@ async function handler(request) {
   }
 
   return serveDir(request, { fsRoot: "static", urlRoot: "static" });
+  /*
+    fsRoot är den faktiska mappen i filsystemet.
+
+    urlRoot är vad användaren skriver i URL:en. */
 }
 
 
