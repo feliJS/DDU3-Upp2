@@ -1,36 +1,37 @@
-const apiBase = "http://localhost:1337";
+const apiBase = "http://localhost:1337"; //bas till url
 
-const cityList = document.getElementById("city-list");
-const searchResults = document.getElementById("search-results");
+const cityList = document.getElementById("city-list"); //city list där alla visas
+const searchResults = document.getElementById("search-results"); //resultaten för sök
 
-async function loadCities() {
+async function loadCities() { //hämtar alla städer från servern
   const res = await fetch(`${apiBase}/cities`);
   const cities = await res.json();
-  cityList.innerHTML = "";
-  cities.forEach(city => renderCity(city));
+  cityList.innerHTML = ""; //rensar listan
+  cities.forEach(city => renderCity(city)); //lägger till varje stad med renderCity
 }
 
-function renderCity(city) {
+function renderCity(city) { //detta skapar div till varje stad
   const div = document.createElement("div");
-  div.className = "city-item";
-  div.innerHTML = `
+  div.className = "city-item"; //className cityItem
+  div.innerHTML = ` //såhär kommer den visas
     ${city.name}, ${city.country}
     <button class="delete-btn">Delete</button>
   `;
-  div.querySelector("button").addEventListener("click", () => deleteCity(city.id));
+  div.querySelector("button").addEventListener("click", () => deleteCity(city.id)); //dn kmmer ha en knapp som tar bort de
   cityList.appendChild(div);
 }
 
-async function deleteCity(id) {
+async function deleteCity(id) { //här är requesten
   const res = await fetch(`${apiBase}/cities`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id })
   });
-  if (res.ok) loadCities();
+  if (res.ok) loadCities(); //om det gick bra, reloada cities (för o uppdatera så det inte blir delete)
 }
 
-document.getElementById("add-btn").addEventListener("click", async () => {
+//nedan är async, den kommer ju lägga till när det är klart
+document.getElementById("add-btn").addEventListener("click", async () => { //lägger till en stad! den är async.
   const name = document.getElementById("add-name").value;
   const country = document.getElementById("add-country").value;
   if (!name || !country) return alert("Please enter name and country");
